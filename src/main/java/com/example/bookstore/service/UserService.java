@@ -6,9 +6,11 @@ import java.util.Locale;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.bookstore.dto.RegisterRequest;
 import com.example.bookstore.dto.UserCreateRequest;
 import com.example.bookstore.dto.UserResponse;
 import com.example.bookstore.entity.User;
+import com.example.bookstore.model.Role;
 import com.example.bookstore.repository.UserRepository;
 
 @Service
@@ -22,11 +24,34 @@ public class UserService {
 		this.passwordEncoder = passwordEncoder;
 	}
 
+	public void registerCustomer(RegisterRequest request) {
+		String email = request.getEmail().trim().toLowerCase(Locale.ROOT);
+
+		if (userRepository.existsByEmail(email)) {
+			System.out.println("Email is already registered");
+		}
+
+		User user = new User();
+
+		user.setFirstName(request.getFirstName().trim());
+
+		user.setLastName(request.getLastName().trim());
+
+		user.setEmail(request.getEmail().trim());
+
+		user.setPassword(passwordEncoder.encode(request.getPassword()));
+
+		user.setRole(Role.CUSTOMER);
+		user.setEnabled(true);
+
+		userRepository.save(user);
+	}
+
 	public UserResponse createUser(UserCreateRequest request) {
 
 		String email = request.email().trim().toLowerCase(Locale.ROOT);
 
-		if (userRepository.existByEmail(email)) {
+		if (userRepository.existsByEmail(email)) {
 			System.out.println("Email already exists: " + email);
 		}
 
@@ -50,26 +75,16 @@ public class UserService {
 	}
 
 	public List<UserResponse> findAllUsers() {
-		return userRepository.findAll().stream()
-				.map(this::toResponse).toList();
+		return userRepository.findAll().stream().map(this::toResponse).toList();
 	}
 
 //	/api/users
 	/**
-	 * {
-		  "firstName": "Bookstore",
-		  "lastName": "Admin",
-		  "email": "admin@bookstore.com",
-		  "password": "admin123",
-		  "role": "ADMIN"
-		}
-		{
-		  "firstName": "Bat",
-		  "lastName": "Bold",
-		  "email": "bat@example.com",
-		  "password": "customer123",
-		  "role": "CUSTOMER"
-		}
+	 * { "firstName": "Bookstore", "lastName": "Admin", "email":
+	 * "admin@bookstore.com", "password": "admin123", "role": "ADMIN" } {
+	 * "firstName": "Bat", "lastName": "Bold", "email": "bat@example.com",
+	 * "password": "customer123", "role": "CUSTOMER" }
+	 * 
 	 * @param user
 	 * @return
 	 */
