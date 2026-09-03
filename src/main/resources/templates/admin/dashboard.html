@@ -2,23 +2,32 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Customer Dashboard</title>
+<title>Admin Dashhboard</title>
 </head>
 <body>
 
-	<h1>Bookstore Customer Dashboard</h1>
+	<h1>Bookstore Admin Dashboard</h1>
 	
 	<p>
 		Logged in as: 
 		<strong th:text="${email}">
-			customer@example.com
+			admin@example.com
 		</strong>
 	</p>
 
-	<p>
-		Cart and Orders will be added later
-	</p>
-	
+	<nav>
+		<ul>
+			<li>
+				<a th:href="@{/books}">manage books</a>
+			</li>
+			<li>
+				<a th:href="@{/authors}">manage Authors</a>
+			</li>
+			<li>
+				<a th:href="@{/categories}">manage Categories</a>
+			</li>
+		</ul>
+	</nav>
 	<form th:action="@{/logout}" method="post">
 		<button type="submit">
 			Logout
