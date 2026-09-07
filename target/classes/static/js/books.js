@@ -66,6 +66,21 @@ const message =
         "#message"
     );
 
+
+const csrfToken =
+    document.querySelector(
+        'meta[name="_csrf"]'
+    ).content;
+
+const csrfHeader =
+    document.querySelector(
+        'meta[name="_csrf_header"]'
+    ).content;
+
+console.log(csrfHeader);
+console.log(csrfToken);
+
+
 async function loadCategories() {
     console.log('api');
     const response = await fetch(CATEGORY_API);
@@ -233,13 +248,20 @@ async function handleSubmit(event) {
             ? "PUT"
             : "POST";
     try {
+        console.log(book);
+        console.log(JSON.stringify(book));
+        console.log(csrfHeader);
+        console.log(csrfToken);
+
         const response = await fetch(url, {
             method: method,
             headers: {
-                "Content-Types": "application/json"
+                "Content-Type": "application/json",
+                [csrfHeader]: csrfToken
             },
             body: JSON.stringify(book)
         });
+
 
         if (!response.ok) {
             throw new Error(
@@ -297,7 +319,10 @@ async function deleteBook(id) {
             await fetch(
                 `${BOOK_API}/${id}`,
                 {
-                    method: "DELETE"
+                    method: "DELETE",
+                    headers: {
+                        [csrfHeader]: csrfToken
+                    }
                 }
             );
         if (!response.ok) {

@@ -6,6 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<meta name="_csrf" th:content="${_csrf.token}">
+
+<meta name="_csrf_header" th:content="${_csrf.headerName}">
+
 <title>Book Management</title>
 
 <link rel="stylesheet" th:href="@{/css/books.css}">
@@ -81,9 +85,8 @@
 
 				<div class="form-group checkbox-group">
 
-					<input type="checkbox" id="book-active" checked>
-
-					<label for="book-active"> Active </label>
+					<input type="checkbox" id="book-active" checked> <label
+						for="book-active"> Active </label>
 
 				</div>
 
