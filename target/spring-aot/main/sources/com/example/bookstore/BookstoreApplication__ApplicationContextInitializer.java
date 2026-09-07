@@ -34,6 +34,7 @@ public class BookstoreApplication__ApplicationContextInitializer implements Appl
    */
   private void addImportAwareBeanPostProcessors(DefaultListableBeanFactory beanFactory) {
     Map<String, String> mappings = new HashMap<>();
+    mappings.put("org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration", "com.example.bookstore.config.SecurityConfig");
     mappings.put("org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration", "org.springframework.boot.transaction.autoconfigure.TransactionAutoConfiguration$EnableTransactionManagementConfiguration$CglibAutoProxyConfiguration");
     RootBeanDefinition beanDefinition = new RootBeanDefinition(ImportAwareAotBeanPostProcessor.class);
     beanDefinition.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);

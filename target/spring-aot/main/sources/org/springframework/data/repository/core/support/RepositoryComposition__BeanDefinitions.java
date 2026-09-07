@@ -61,7 +61,7 @@ public class RepositoryComposition__BeanDefinitions {
     }
 
     /**
-     * Get the bean instance supplier for 'jpa.BookRepository.fragments#0'.
+     * Get the bean instance supplier for 'jpa.UserRepository.fragments#0'.
      */
     private static BeanInstanceSupplier<RepositoryFragmentsFactoryBean> getFragmentsInstanceSupplier2(
         ) {
@@ -82,7 +82,7 @@ public class RepositoryComposition__BeanDefinitions {
     }
 
     /**
-     * Get the bean instance supplier for 'jpa.UserRepository.fragments#0'.
+     * Get the bean instance supplier for 'jpa.BookRepository.fragments#0'.
      */
     private static BeanInstanceSupplier<RepositoryFragmentsFactoryBean> getFragmentsInstanceSupplier3(
         ) {

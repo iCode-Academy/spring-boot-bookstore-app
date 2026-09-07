@@ -27,6 +27,18 @@ public class UserRepositoryImpl__AotRepository extends AotRepositoryFragmentSupp
   }
 
   /**
+   * AOT generated implementation of {@link UserRepository#existsByEmail(java.lang.String)}.
+   */
+  public boolean existsByEmail(String email) {
+    String queryString = "SELECT u.id FROM User u WHERE u.email = :email";
+    Query query = this.entityManager.createQuery(queryString);
+    query.setParameter("email", email);
+    query.setMaxResults(1);
+
+    return !query.getResultList().isEmpty();
+  }
+
+  /**
    * AOT generated implementation of {@link UserRepository#findByEmail(java.lang.String)}.
    */
   public Optional<User> findByEmail(String email) {
