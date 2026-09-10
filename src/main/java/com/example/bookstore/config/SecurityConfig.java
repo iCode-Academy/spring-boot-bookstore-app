@@ -26,7 +26,7 @@ public class SecurityConfig {
 						"/api/health", "/error")
 				.permitAll().requestMatchers("/admin/**", "/books", "/authors", "/categories").hasRole("ADMIN")
 				.requestMatchers("/api/users/**", "/api/books/**", "/api/authors/**", "/api/categories/**")
-				.hasRole("ADMIN").requestMatchers("/customer/**").hasRole("CUSTOMER").anyRequest().authenticated()
+				.hasRole("ADMIN").requestMatchers("/customer/**", "/api/cart/**").hasRole("CUSTOMER").anyRequest().authenticated()
 
 		);
 		http.formLogin(form -> form
