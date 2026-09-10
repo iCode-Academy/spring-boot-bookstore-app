@@ -6,6 +6,44 @@ const csrfToken = document.querySelector('meta[name="_csrf"]').content;
 const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
 const cartItems = document.querySelector("#cart-items");
 const cartTotal = document.querySelector("#cart-total");
+const checkoutButton =
+    document.querySelector(
+        "#checkout-button"
+    );
+
+
+async function checkout() {
+    const confirmed = confirm("Place the order?");
+    if (!confirmed) {
+        return;
+    }
+
+    try {
+        const response = await fetch("/api/checkout", {
+            method: "POST",
+            headers: { [csrfHeader]: csrfToken }
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || " Checkout failed");
+        }
+
+        const order = await response.json();
+        alert(`Order #${order.orderId} created successfully.`);
+
+        window.location.href = `/customer/orders/${order.orderId}`;
+
+    } catch (error) {
+        console.error(error);
+        alert(error.message);
+    }
+}
+
+checkoutButton.addEventListener('click', checkout);
+
+// /customer/orders
+// /customer/orders/1
 
 async function loadCart() {
     const response = await fetch(CART_API);
@@ -107,5 +145,7 @@ async function removeItem(id) {
     const cart = await response.json();
     renderCart(cart);
 }
+
+
 
 loadCart();
