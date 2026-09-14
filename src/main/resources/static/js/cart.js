@@ -21,7 +21,8 @@ async function checkout() {
     try {
         const response = await fetch("/api/checkout", {
             method: "POST",
-            headers: { [csrfHeader]: csrfToken }
+            headers: { [csrfHeader]: csrfToken },
+			
         });
 
         if (!response.ok) {
