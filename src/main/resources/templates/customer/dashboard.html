@@ -16,7 +16,17 @@
 	</p>
 
 	<p>
-		Cart and Orders will be added later
+		<a th:href="@{/shop}">
+    		Browse Books
+		</a>
+		
+		<a th:href="@{/customer/cart}">
+		    My Cart
+		</a>
+		
+		<a th:href="@{/customer/orders}">
+		    My Orders
+		</a>
 	</p>
 	
 	<form th:action="@{/logout}" method="post">
